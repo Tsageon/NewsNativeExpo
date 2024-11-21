@@ -1,13 +1,13 @@
 import React from 'react';
-import { StyleSheet, Text , View  } from 'react-native';
+import { StyleSheet, View  } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import NewsScreen from './Screens/index1';
+import AppNav from './Screens/AppNav'
 
 export default function App() {
   return (
     <SafeAreaProvider>
       <View style={styles.container}>
-    <NewsScreen />
+   <AppNav/>
   </View></SafeAreaProvider>
     
   )
