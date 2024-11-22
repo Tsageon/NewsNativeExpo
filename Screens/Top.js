@@ -81,37 +81,33 @@ export default class HomePage extends Component {
 
     render() {
         const { isLoadingPopular, isLoadingRecommended, popularArticles, recommendedArticles } = this.state;
-
+    
         return (
-            <View style={styles.container}>
-            <Text style={styles.header}>News</Text>
-        
-            <View style={styles.newsSection}>
-                <Text style={styles.sectionTitle}>Popular News</Text>
-        
-          
-                <View style={styles.linkContainer}>
-                    <Text style={styles.linkText}>
-                        Want news for a specific country?{' '}
-                        <Text 
-                            style={styles.link}
-                            onPress={() => Linking.openURL('https://www.bing.com/news')}
-                        >
-                            Click Here
+            <ScrollView contentContainerStyle={styles.container}>
+                <Text style={styles.header}>News</Text>
+    
+                <View style={styles.newsSection}>
+                    <Text style={styles.sectionTitle}>Popular News</Text>
+                    <View style={styles.linkContainer}>
+                        <Text style={styles.linkText}>
+                            Want news for a specific country?{' '}
+                            <Text
+                                style={styles.link}
+                                onPress={() => Linking.openURL('https://www.bing.com/news')}
+                            >
+                                Click Here
+                            </Text>
                         </Text>
-                    </Text>
-                </View>
-        
-                {isLoadingPopular ? (
-                    <ActivityIndicator size="large" color="#4CAF50" style={styles.loader} />
-                ) : (
-                    popularArticles.length > 0 ? (
-                        <ScrollView>
-                            {popularArticles.map((article, index) => (
+                    </View>
+                    {isLoadingPopular ? (
+                        <ActivityIndicator size="large" color="#4CAF50" style={styles.loader} />
+                    ) : (
+                        popularArticles.length > 0 ? (
+                            popularArticles.map((article, index) => (
                                 <View key={index} style={styles.article}>
                                     {article.urlToImage ? (
-                                        <Image 
-                                            source={{ uri: article.urlToImage }} 
+                                        <Image
+                                            source={{ uri: article.urlToImage }}
                                             style={styles.articleImage}
                                         />
                                     ) : null}
@@ -119,28 +115,26 @@ export default class HomePage extends Component {
                                     <Text style={styles.articleDescription}>
                                         {article.description}
                                     </Text>
-                                    <Button 
+                                    <Button
                                         title="Read More"
                                         onPress={() => Linking.openURL(article.url)}
                                         color="#FF6347"
                                     />
                                 </View>
-                            ))}
-                        </ScrollView>
+                            ))
+                        ) : (
+                            <Text style={styles.noArticlesText}>No popular news found</Text>
+                        )
+                    )}
+                </View>
+    
+                <View style={styles.newsSection}>
+                    <Text style={styles.sectionTitle}>Recommended News</Text>
+                    {isLoadingRecommended ? (
+                        <ActivityIndicator size="large" color="#0000ff" style={styles.loader} />
                     ) : (
-                        <Text style={styles.noArticlesText}>No popular news found</Text>
-                    )
-                )}
-            </View>
-        
-            <View style={styles.newsSection}>
-                <Text style={styles.sectionTitle}>Recommended News</Text>
-                {isLoadingRecommended ? (
-                    <ActivityIndicator size="large" color="#0000ff" style={styles.loader} />
-                ) : (
-                    recommendedArticles.length > 0 ? (
-                        <ScrollView>
-                            {recommendedArticles.map((article, index) => (
+                        recommendedArticles.length > 0 ? (
+                            recommendedArticles.map((article, index) => (
                                 <View key={index} style={styles.article}>
                                     {article.urlToImage && (
                                         <Image
@@ -149,25 +143,28 @@ export default class HomePage extends Component {
                                         />
                                     )}
                                     <Text style={styles.articleTitle}>{article.title}</Text>
-                                    <Text style={styles.articleDescription}>{article.description}</Text>
-                                    <Button 
+                                    <Text style={styles.articleDescription}>
+                                        {article.description}
+                                    </Text>
+                                    <Button
                                         title="Read more"
                                         onPress={() => Linking.openURL(article.url)}
                                         color="#FF6347"
                                     />
                                 </View>
-                            ))}
-                        </ScrollView>
-                    ) : (
-                        <Text style={styles.noArticlesText}>No recommended news found</Text>
-                    )
-                )}
-            </View>
-        </View>
-        
-        );    
+                            ))
+                        ) : (
+                            <Text style={styles.noArticlesText}>No recommended news found</Text>
+                        )
+                    )}
+                </View>
+            </ScrollView>
+        );
     }
-}
+    
+        
+       
+    }
 
 
 const styles = StyleSheet.create({
